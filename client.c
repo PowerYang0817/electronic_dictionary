@@ -61,13 +61,18 @@ void select_word_history(){
     send(sockfd,&buf,sizeof(buf),0);//申请
     send(sockfd,&buf,sizeof(buf),0);//传id
     int flag=1;
+    int num=0;
     while(flag){
         recv(sockfd,&buf,sizeof(buf),0);
         if(buf.type==0){
             flag=0;
+            if(num==0){
+              printf("目前没有历史记录\n");
+            }
             break;
         }
         printf("单词:%s\n解释:%s\n时间:%s\n",buf.word,buf.word_definition,buf.date);
+        num++;
     }
 }
 void quit_log(){//退出登陆
@@ -100,15 +105,18 @@ int main(int argc, char const *argv[])
     serveraddr.sin_port=htons(8899);
     serveraddr.sin_addr.s_addr=INADDR_ANY;//ip
     connect(sockfd,(struct sockaddr*)&serveraddr,sizeof(serveraddr));
+    printf("--------欢迎使用电子词典--------\n");
+    printf("-----------------------------\n");
     while(1){
-        printf("--------欢迎使用电子词典--------\n");
-        printf("-----------------------------\n");
+        
         if(is_login_c==0){
             int n;
-            printf("1登陆,2注册 3.退出\n输入选择的功能:");
+            printf("--1.登陆--2.注册--3.退出--\n输入选择的功能:");
             scanf("%d",&n);
             if(n==1){//登陆
                 login();
+                printf("--------欢迎使用电子词典--------\n");
+                printf("-----------------------------\n");
             }else if(n==2){//注册
                 register_user();
             }else if(n==3){//退出
@@ -118,7 +126,7 @@ int main(int argc, char const *argv[])
             }
         }else{
             //页面
-            printf("1.查询单词 2.查历史记录 3.退出登陆 4.退出 功能 :");
+            printf("--1.查询单词-2.查历史记录-3.退出登陆-4.退出\n选择功能 :");
             int n;
             scanf("%d",&n);
             if(n==1){//查询
@@ -128,6 +136,8 @@ int main(int argc, char const *argv[])
             }else if(n==3){//退出登陆
                 quit_log();
                 is_login_c=0;
+                printf("--------欢迎使用电子词典--------\n");
+                printf("-----------------------------\n");
             }else if(n==4){//结束程序
                 exit(-1);
             }else{//错误

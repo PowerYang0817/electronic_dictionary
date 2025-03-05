@@ -1,31 +1,4 @@
-// #include "my.h"
-// int main(int argc, char const *argv[])
-// {
-//     sqlite3 *db;
-//     int ret=sqlite3_open("./dict.db",&db);
-//     if(ret==-1){
-//         exit(-1);
-//     }
-//     FILE *fd=fopen("dict.txt","r");
-//     if(fd==NULL){exit(-1);}
-//     char sql[300];
-//     char temp[300];
-//     while((fgets(temp,sizeof(temp),fd))>0){//txt文件添加至数据库中
-//         char word[50];
-//         char *word_c;
-//         word_c=strstr(temp," ");
-//         size_t spaces=strspn(word_c," "); //连续包含字符集
-//         word_c=word_c+spaces;
-//         strncpy(word,temp,strcspn(temp," "));//连续不包含字符集
-//         // puts(word_c);
-//         sprintf(sql,"insert into dict values('%s','%s');",word,word_c);
-//         // printf("%d",sqlite3_exec(db,sql,NULL,NULL,NULL));
-//         sqlite3_exec(db,sql,NULL,NULL,NULL);
-//         memset(temp,0,sizeof(temp));
-//     }
-//     fclose(fd);
-//     return 0;
-// }
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
